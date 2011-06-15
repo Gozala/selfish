@@ -3,7 +3,7 @@
   "id": "selfish",
   "version": "0.0.1",
   "description": "Pure Prototypal Inheritance",
-  "keywords": [  ],
+  "keywords": [ "oop", "inheritance", "prototype", "class", "micro", "simple" ],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
   "homepage": "https://github.com/Gozala/selfish",
   "repository": {
