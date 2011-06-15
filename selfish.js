@@ -20,7 +20,6 @@ Base.prototype.extend = function extend(properties) {
     descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
   });
   descriptor.constructor = { value: constructor };
-  return (constructor.prototype = Object.create(this, descriptor));
   return Object.freeze(constructor.prototype = Object.create(this, descriptor));
 };
 
@@ -34,6 +33,7 @@ Base.isPrototypeOf = function isPrototypeOf(object) {
   return Base.prototype.isPrototypeOf(object);
 };
 
-exports.Base = Base;
+Object.freeze(Base.prototype);
+exports.Base = Object.freeze(Base);
 
 });
