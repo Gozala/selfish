@@ -21,9 +21,7 @@ Base.prototype.extend = function extend(properties) {
   });
   descriptor.constructor = { value: constructor };
   return (constructor.prototype = Object.create(this, descriptor));
-};
-Base.prototype.nstanceO = function instanceOf(prototype) {
-  return this instanceof prototype.constructor;
+  return Object.freeze(constructor.prototype = Object.create(this, descriptor));
 };
 
 Base.new = function() {
@@ -31,6 +29,9 @@ Base.new = function() {
 };
 Base.extend = function extend(properties) {
   return Base.prototype.extend(properties);
+};
+Base.isPrototypeOf = function isPrototypeOf(object) {
+  return Base.prototype.isPrototypeOf(object);
 };
 
 exports.Base = Base;
