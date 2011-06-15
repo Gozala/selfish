@@ -8,7 +8,7 @@
 "use strict";
 
 function Base(prototype) {
-  if (prototype) return Object.getPrototypeOf(prototype);
+  if (prototype) return Object.getPrototypeOf(Object.getPrototypeOf(prototype));
 }
 Base.prototype.new = function() {
   return new this.constructor();
