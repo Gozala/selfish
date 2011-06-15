@@ -15,6 +15,7 @@ Base.prototype.new = function() {
 };
 Base.prototype.extend = function extend(properties) {
   var constructor = new Function(), descriptor = {};
+  properties = properties || {};
   Object.getOwnPropertyNames(properties).forEach(function(name) {
     descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
   });
