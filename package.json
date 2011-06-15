@@ -1,0 +1,35 @@
+{
+  "name": "selfish",
+  "id": "selfish",
+  "version": "0.0.1",
+  "description": "Pure Prototypal Inheritance",
+  "keywords": [  ],
+  "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
+  "homepage": "https://github.com/Gozala/selfish",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gozala/selfish.git",
+    "web": "https://github.com/Gozala/selfish"
+  },
+  "bugs": {
+    "web": "http://github.com/Gozala/selfish/issues/"
+  },
+  "devDependencies": {
+    "test": ">=0.0.10"
+  },
+  "dependencies": {
+    "graphquire": ">=0.6.0"
+  },
+  "main": "./selfish.js",
+  "engines": {
+    "node": "0.4.x"
+  },
+  "scripts": {
+    "test": "node tests/test-selfish.js",
+    "install": "graphquire --clean --write"
+  },
+  "licenses": [{
+    "type" : "MIT",
+    "url" : "http://jeditoolkit.com/LICENSE"
+  }]
+}
