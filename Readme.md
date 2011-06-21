@@ -8,11 +8,11 @@ Pure Prototypal Inheritance
 
 ## Require ##
 
-    var Base = require('https!raw.github.com/Gozala/selfish/v0.0.2/selfish.js').Base
+    var Base = require('https!raw.github.com/Gozala/selfish/v0.0.3/selfish.js').Base
 
 ## Examples ##
 
-    var Base = require('https!raw.github.com/Gozala/selfish/v0.0.2/selfish.js').Base
+    var Base = require('https!raw.github.com/Gozala/selfish/v0.0.3/selfish.js').Base
     var Prototype = Base.extend({
       inherited: function inherited() {
         return "inherited property"
