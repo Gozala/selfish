@@ -24,7 +24,7 @@ Base.prototype.extend = function extend(properties) {
 };
 
 Base.new = function() {
-  return Base.prototype.new();
+  return Base.prototype.new.call(this);
 };
 Base.extend = function extend(properties) {
   return Base.prototype.extend(properties);

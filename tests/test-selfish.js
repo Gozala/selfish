@@ -122,6 +122,32 @@ exports['test instance mutability'] = function(assert) {
   assert.equal(f1.number, 1, "method can mutate instance's own properties");
 };
 
+exports['test super'] = function(assert) {
+  var Foo = Base.extend({
+    new: function Foo(options) {
+      var self = Base.new.call(this);
+      self.name = options.name;
+      return self;
+    }
+  });
+
+  var Bar = Foo.extend({
+    new: function Bar(options) {
+      var self = Foo.new.call(this, options);
+      self.type = 'bar';
+      return self;
+    }
+  });
+
+  var bar = Bar.new({ name: 'test' });
+
+  assert.ok(Bar.isPrototypeOf(bar), 'Bar is prototype of Bar.new');
+  assert.ok(Foo.isPrototypeOf(bar), 'Foo is prototype of Bar.new');
+  assert.ok(Base.isPrototypeOf(bar), 'Base is prototype of Bar.new');
+  assert.equal(bar.type, 'bar', 'bar initializer was called');
+  assert.equal(bar.name, 'test', 'bar initializer called Foo initializer');
+};
+
 if (module == require.main)
   require("test").run(exports);
 
