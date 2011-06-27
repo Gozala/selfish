@@ -15,7 +15,7 @@
     "web": "http://github.com/Gozala/selfish/issues/"
   },
   "devDependencies": {
-    "test": ">=0.0.10"
+    "test": ">=0.2.1"
   },
   "dependencies": {
     "graphquire": ">=0.6.0"
