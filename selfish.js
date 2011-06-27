@@ -7,34 +7,19 @@
 
 "use strict";
 
-function Base(prototype) {
-  if (prototype) return Object.getPrototypeOf(Object.getPrototypeOf(prototype));
-}
-Base.prototype.new = function() {
-  return new this.constructor();
-};
-Base.prototype.extend = function extend(properties) {
-  var constructor = new Function(), descriptor = {};
-  properties = properties || {};
-  Object.getOwnPropertyNames(properties).forEach(function(name) {
-    descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
-  });
-  descriptor.constructor = { value: constructor };
-  return Object.freeze(constructor.prototype = Object.create(this, descriptor));
-};
-
-Base.constructor = Base;
-Base.new = function() {
-  return Base.prototype.new.call(this);
-};
-Base.extend = function extend(properties) {
-  return Base.prototype.extend(properties);
-};
-Base.isPrototypeOf = function isPrototypeOf(object) {
-  return Base.prototype.isPrototypeOf(object);
-};
-
-Object.freeze(Base.prototype);
-exports.Base = Object.freeze(Base);
+exports.Base = Object.freeze(Object.create((function Base() { }).prototype, {
+  new: { value: function () {
+    return Object.create(this);
+  }},
+  extend: { value: function extend(properties) {
+    var descriptor = { base: { value: this } };
+    Array.prototype.forEach.call(arguments, function (properties) {
+      Object.getOwnPropertyNames(properties).forEach(function(name) {
+        descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
+      });
+    });
+    return Object.freeze(Object.create(this, descriptor));
+  }}
+}));
 
 });
