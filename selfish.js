@@ -7,8 +7,8 @@
 
 "use strict";
 
-exports.Base = Object.freeze(Object.create((function Base() { }).prototype, {
-  new: { value: function () {
+exports.Base = Object.freeze(Object.create(Object.prototype, {
+  new: { value: function Base() {
     return Object.create(this);
   }},
   extend: { value: function extend(properties) {
