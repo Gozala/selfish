@@ -23,6 +23,7 @@ Base.prototype.extend = function extend(properties) {
   return Object.freeze(constructor.prototype = Object.create(this, descriptor));
 };
 
+Base.constructor = Base;
 Base.new = function() {
   return Base.prototype.new.call(this);
 };
