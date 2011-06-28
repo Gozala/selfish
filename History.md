@@ -1,5 +1,11 @@
 # Changes #
 
+## 0.2.0 / 2011-06-28 ##
+
+ - Adding `initialize` method for that is called by `new` on each instance
+   initialization.
+ - Documentation!
+
 ## 0.1.0 / 2011-06-27 ##
 
  - Reducing API complexity by removing experimental `Base` as function form.
