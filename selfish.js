@@ -11,7 +11,10 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
   base: { value: Object.prototype },
   new: { value: function () {
     var object = Object.create(this);
+    object.initialize.apply(object, arguments);
     return object;
+  }},
+  initialize: { value: function Base() {
   }},
   extend: { value: function extend() {
     var descriptor = {};
