@@ -1,5 +1,9 @@
 # Changes #
 
+## 0.2.1 / 2011-06-28 ##
+
+ - Removed obsolete package dependency.
+
 ## 0.2.0 / 2011-06-28 ##
 
  - Adding `initialize` method for that is called by `new` on each instance
