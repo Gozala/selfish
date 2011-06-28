@@ -17,16 +17,12 @@
   "devDependencies": {
     "test": ">=0.2.1"
   },
-  "dependencies": {
-    "graphquire": ">=0.6.0"
-  },
   "main": "./selfish.js",
   "engines": {
     "node": "0.4.x"
   },
   "scripts": {
-    "test": "node tests/test-selfish.js",
-    "install": "graphquire --clean --write"
+    "test": "node tests/test-selfish.js"
   },
   "licenses": [{
     "type" : "MIT",
