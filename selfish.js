@@ -8,16 +8,19 @@
 "use strict";
 
 exports.Base = Object.freeze(Object.create(Object.prototype, {
-  new: { value: function Base() {
-    return Object.create(this);
+  base: { value: Object.prototype },
+  new: { value: function () {
+    var object = Object.create(this);
+    return object;
   }},
-  extend: { value: function extend(properties) {
-    var descriptor = { base: { value: this } };
+  extend: { value: function extend() {
+    var descriptor = {};
     Array.prototype.forEach.call(arguments, function (properties) {
       Object.getOwnPropertyNames(properties).forEach(function(name) {
         descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
       });
     });
+    descriptor.base = { value: this };
     return Object.freeze(Object.create(this, descriptor));
   }}
 }));
