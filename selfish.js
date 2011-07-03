@@ -38,7 +38,7 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *    });
    *    var dog = Dog.new();
    */
-  new: { value: function () {
+  'new': { value: function () {
     var object = Object.create(this);
     object.initialize.apply(object, arguments);
     return object;
