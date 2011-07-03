@@ -1,5 +1,10 @@
 # Changes #
 
+## 0.2.2 / 2011-07-03 ##
+
+  - Quote method `new` for pre ES5 JS engines so that library can be loaded and
+    method can be aliased with `create` for example.
+
 ## 0.2.1 / 2011-06-28 ##
 
  - Removed obsolete package dependency.
