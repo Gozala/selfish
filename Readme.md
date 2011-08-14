@@ -56,7 +56,7 @@ var Pet = Dog.extend({
 var pet = Pet.new('Labrador', 'Benzy')
 pet.toString()          // 'Labrador Benzy'
 pet.call('doggy')       // ''
-pet.call('Benzy')
+pet.call('Benzy')       // 'Ruff! Ruff!'
 ```
 
 
@@ -104,7 +104,7 @@ var CMYK = Base.extend(RGB, {
 
 // Composing `Color` prototype out of reusable components:
 var Color = Base.extend(HEX, RGB, CMYK, {
-  initialize: function Color(color) {
+  initialize: function initialize(color) {
     this.color = color
   }
 })
