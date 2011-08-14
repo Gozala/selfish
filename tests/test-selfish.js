@@ -124,18 +124,15 @@ exports['test instance mutability'] = function(assert) {
 
 exports['test super'] = function(assert) {
   var Foo = Base.extend({
-    new: function Foo(options) {
-      var self = Base.new.call(this);
-      self.name = options.name;
-      return self;
+    initialize: function Foo(options) {
+      this.name = options.name;
     }
   });
 
   var Bar = Foo.extend({
-    new: function Bar(options) {
-      var self = Foo.new.call(this, options);
-      self.type = 'bar';
-      return self;
+    initialize: function Bar(options) {
+      Foo.initialize.call(this, options);
+      this.type = 'bar';
     }
   });
 

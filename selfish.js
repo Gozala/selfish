@@ -9,24 +9,6 @@
 
 exports.Base = Object.freeze(Object.create(Object.prototype, {
   /**
-   * Property representing a base prototype, object `this` prototype extends.
-   * If `this` object is an object created by `.new`, then `base` will be
-   * a prototype that, prototype of this extends. This property is intended to
-   * for calling methods of base / super prototype with out directly reference.
-   * @examples
-   *
-   *    var Point = Base.extend({
-   *      initialize: function Point(x, y) {
-   *        point.x = x || 0;
-   *        point.y = y || 0;
-   *      },
-   *      toString: function toString() {
-   *        return this.x + ':' + this.y
-   *      }
-   *    });
-   */
-  base: { value: Object.prototype },
-  /**
    * Creates an object that inherits from `this` object (Analog of
    * `new Object()`).
    * @examples
