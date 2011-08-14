@@ -3,7 +3,7 @@
          forin: true latedef: false supernew: true */
 /*global define: true */
 
-(typeof define !== "function" ? function($){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)(function(require, exports) {
+!(typeof define !== "function" ? function($){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)(function(require, exports) {
 
 "use strict";
 
@@ -20,12 +20,51 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *    });
    *    var dog = Dog.new();
    */
-  'new': { value: function () {
+  'new': { value: function create() {
     var object = Object.create(this);
     object.initialize.apply(object, arguments);
     return object;
   }},
-  initialize: { value: function Base() {
+  /**
+   * When new instance of the this prototype is created it's `initialize`
+   * method is called with all the arguments passed to the `new`. You can
+   * override `initialize` to set up an instance.
+   */
+  initialize: { value: function initialize() {
+  }},
+  /**
+   * Merges all the properties of the passed objects into `this` instance (This
+   * method can be used on instances only as prototype objects are frozen).
+   *
+   * If two or more argument objects have own properties with the same name,
+   * the property is overridden, with precedence from right to left, implying,
+   * that properties of the object on the left are overridden by a same named
+   * property of the object on the right.
+   *
+   * @examples
+   *
+   *    var Pet = Dog.extend({
+   *      initialize: function initialize(options) {
+   *        // this.name = options.name -> would have thrown (frozen prototype)
+   *        this.merge(options) // will override all properties.
+   *      },
+   *      call: function(name) {
+   *        return this.name === name ? this.bark() : ''
+   *      },
+   *      name: null
+   *    })
+   *    var pet = Pet.new({ name: 'Benzy', breed: 'Labrador' })
+   *    pet.call('Benzy')   // 'Ruff! Ruff!'
+   */
+  merge: { value: function merge() {
+    var descriptor = {};
+    Array.prototype.forEach.call(arguments, function (properties) {
+      Object.getOwnPropertyNames(properties).forEach(function(name) {
+        descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
+      });
+    });
+    Object.defineProperties(this, descriptor);
+    return this;
   }},
   /**
    * Takes any number of argument objects and returns frozen, composite object
@@ -88,7 +127,7 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *
    *    var Pixel = Color.extend({
    *      initialize: function Pixel(x, y, hex) {
-   *        this.base.initialize.call(this, hex);
+   *        Color.initialize.call(this, hex);
    *        this.x = x;
    *        this.y = y;
    *      },
@@ -109,19 +148,8 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *    pixel.yellow();   // 0.2500
    *
    */
-  extend: { value: function extend() {
-    // Defining an ES5 property descriptor map, where own property
-    // descriptors of all given objects are copied.
-    var descriptor = {};
-    Array.prototype.forEach.call(arguments, function (properties) {
-      Object.getOwnPropertyNames(properties).forEach(function(name) {
-        descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
-      });
-    });
-    // In addition `base` property is defined that points to a primary ancestor
-    // of the resulting object.
-    descriptor.base = { value: this };
-    return Object.freeze(Object.create(this, descriptor));
+   extend: { value: function extend() {
+    return Object.freeze(this.merge.apply(Object.create(this), arguments));
   }}
 }));
 
