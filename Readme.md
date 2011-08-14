@@ -10,7 +10,7 @@ or `new`, `instanceof` operators.
 
 ## Require ##
 
-    var Base = require('https!raw.github.com/Gozala/selfish/v0.2.0/selfish.js').Base
+    var Base = require('!raw.github.com/Gozala/selfish/v0.3.0/selfish').Base
 
 ## Examples ##
 
@@ -125,11 +125,8 @@ pink.cyan()       // 0.0000
 
 ```js
 var Pixel = Color.extend({
-  initialize: function Pixel(x, y, color) {
-    // extend sets special `base` proprety so that you can access ancestor
-    // prototype object without direct reference. Againg you can override
-    // extend if you wish to do something else:
-    this.base.initialize.call(this, color)
+  initialize: function initialize(x, y, color) {
+    Color.initialize.call(this, color)
     this.x = x
     this.y = y
   },
