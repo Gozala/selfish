@@ -145,7 +145,45 @@ exports['test super'] = function(assert) {
   assert.equal(bar.name, 'test', 'bar initializer called Foo initializer');
 };
 
+exports['test array copy depth'] = function(assert) {
+
+  var A = Base.extend({
+    array: [
+      1, { p: 'val', a: [1] }
+    ]
+  });
+
+  var B = Base.extend( A, {});
+
+  var b = B.new();
+
+
+  // Base object checks
+  assert.equal(A.array[0], 1, 'A.array[0] equals 1');
+  assert.equal(B.array[0], 1, 'B.array[0] equals 1');
+
+  assert.equal(A.array[1].p, 'val', 'A.array[1].p equals "val"');
+  assert.equal(B.array[1].p, 'val', 'B.array[1].p equals "val"');
+
+  assert.equal(A.array[1].a[0], 1, 'A.array[1].a[0] equals 1');
+  assert.equal(B.array[1].a[0], 1, 'B.array[1].a[0] equals 1');
+
+
+  // Modify values of the new instance's array at varying depths
+  b.array[0] = 2;
+  b.array[1].p = 'qux';
+  b.array[1].a[0] = 2;
+
+  //console.log( b.array[0] === A.array[0] );
+  //console.log( A.array[0] );
+
+  assert.notEqual(b.array[0], A.array[0], 'Modifying property value primitives of a new instance should not affect Base object');
+  assert.notEqual(b.array[1].p, A.array[1].p, 'Modifying property value objects (object) of a new instance should not affect Base object');
+  assert.notEqual(b.array[1].a[0], A.array[1].a[0], 'Modifying property value objects (array) of a new instance should not affect Base object');
+};
+
+
 if (module == require.main)
-  require("test").run(exports);
+  require('test').run(exports);
 
 })
