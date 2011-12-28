@@ -1,5 +1,14 @@
 # Changes #
 
+## 0.3.1 / 2011-12-29
+
+  - Enable compatibility with latest nodes.
+  - Enable travis tests.
+
+## 0.3.0 / 2011-08-14
+
+  - Introduce `megre` method.
+
 ## 0.2.2 / 2011-07-03 ##
 
   - Quote method `new` for pre ES5 JS engines so that library can be loaded and
