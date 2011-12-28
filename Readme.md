@@ -1,5 +1,7 @@
 # selfish #
 
+[![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish)
+
 Class-free, pure prototypal inheritance that lets write expressive,
 well-structured code, without ever touching special `prototype` properties
 or `new`, `instanceof` operators.
