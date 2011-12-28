@@ -19,7 +19,7 @@
   },
   "main": "./selfish.js",
   "engines": {
-    "node": "0.4.x"
+    "node": ">=0.4.0"
   },
   "scripts": {
     "test": "node tests/test-selfish.js"
