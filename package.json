@@ -1,7 +1,7 @@
 {
   "name": "selfish",
   "id": "selfish",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Class-free, pure prototypal inheritance",
   "keywords": [ "oop", "inheritance", "prototype", "class", "micro", "class-free" ],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",

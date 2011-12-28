@@ -1,5 +1,9 @@
 # Changes #
 
+## 0.3.2 / 2011-12-29
+
+  - Fix `package.json` so that npm no longer complains.
+
 ## 0.3.1 / 2011-12-29
 
   - Enable compatibility with latest nodes.
