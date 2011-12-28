@@ -12,7 +12,7 @@
     "web": "https://github.com/Gozala/selfish"
   },
   "bugs": {
-    "web": "http://github.com/Gozala/selfish/issues/"
+    "url": "http://github.com/Gozala/selfish/issues/"
   },
   "devDependencies": {
     "test": ">=0.2.1"
