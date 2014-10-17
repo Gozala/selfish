@@ -15,11 +15,12 @@
     "url": "http://github.com/Gozala/selfish/issues/"
   },
   "devDependencies": {
-    "test": ">=0.2.1"
+    "requirejs": "^2.1.15",
+    "test": "^0.6.0"
   },
   "main": "./selfish.js",
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=0.6.0"
   },
   "scripts": {
     "test": "node tests/test-selfish.js"
