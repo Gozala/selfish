@@ -3,11 +3,15 @@
          forin: true */
 /*global define: true */
 
-(typeof define === "undefined" ? function ($) { $(require, exports, module) } : define)(function (require, exports, module, undefined) {
+(typeof define === "undefined" ? function ($) { $(require, exports, module); } : define)(function (require, exports, module, undefined) {
 
 "use strict";
 
 var Base = require("../selfish").Base;
+var requirejs = require("requirejs");
+requirejs.config({
+  nodeRequire: require
+});
 
 exports["test .isPrototypeOf"] = function(assert) {
   assert.ok(Base.isPrototypeOf(Base.new()),
@@ -79,7 +83,7 @@ exports["test prototype immutability"] = function(assert) {
   });
 
   assert.throws(function() {
-    Foo.extend = function() {}
+    Foo.extend = function() {};
   }, "Can't change prototype properties");
   assert.throws(function() {
     Foo.foo = "bar";
@@ -145,7 +149,19 @@ exports['test super'] = function(assert) {
   assert.equal(bar.name, 'test', 'bar initializer called Foo initializer');
 };
 
+exports['test requirejs'] = function(assert, done) {
+  requirejs(['../selfish'], function(selfish) {
+    var Base = selfish.Base;
+    assert.ok(Base, 'Base is defined');
+    assert.ok(Base.extend, 'Base have an extend method');
+    assert.ok(Base.new, 'Base have an new method');
+    // just launch another test to check if Base is valid
+    exports["test inheritance"](assert);
+    done();
+  });
+};
+
 if (module == require.main)
   require("test").run(exports);
 
-})
+});
