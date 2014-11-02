@@ -3,7 +3,7 @@
          forin: true latedef: false supernew: true */
 /*global define: true */
 
-!(typeof define !== "function" ? function($){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)(function(require, exports) {
+!(typeof define !== "function" ? function(_, $){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)('selfish', function(require, exports) {
 
 "use strict";
 

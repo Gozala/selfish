@@ -1,10 +1,13 @@
 {
   "name": "selfish",
   "id": "selfish",
-  "version": "0.3.2",
+  "version": "0.3.3",
   "description": "Class-free, pure prototypal inheritance",
   "keywords": [ "oop", "inheritance", "prototype", "class", "micro", "class-free" ],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
+  "contributors": [
+    "Eduardo San Martin Morote <i@posva.net> (http://posva.net)"
+  ],
   "homepage": "https://github.com/Gozala/selfish",
   "repository": {
     "type": "git",
@@ -19,7 +22,7 @@
   },
   "main": "./selfish.js",
   "engines": {
-    "node": ">=0.4.0"
+    "node": ">=0.6.0"
   },
   "scripts": {
     "test": "node tests/test-selfish.js"
