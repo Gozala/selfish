@@ -2,7 +2,7 @@
 
 [![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish)
 
-Class-free, pure prototypal inheritance that lets write expressive,
+Class-free, pure prototypal inheritance that lets you write expressive,
 well-structured code, without ever touching special `prototype` properties
 or `new`, `instanceof` operators.
 
@@ -20,14 +20,14 @@ or `new`, `instanceof` operators.
 
 ```js
 // Instead of creating classes, you create prototype objects. Let's look
-// at the simle example first:
+// at this simple example first:
 var Dog = Base.extend({
   bark: function() {
     return 'Ruff! Ruff!'
   }
 })
 
-// Forget about classes, javascript is prototypal language:
+// Forget about classes, javascript is a prototypal language:
 typeof Dog                // object
 
 // Forget about special `new` operator, just use a maker function:
@@ -139,12 +139,12 @@ var Pixel = Color.extend({
 
 var pixel = Pixel.new(11, 23, 'CC3399')
 pixel.toString()              // 11:23@#CC3399
-Pixel.isPrototypeOf(pixel)
+Pixel.isPrototypeOf(pixel)    // true
 
 // Pixel instances inhertis from `Color`
 Color.isPrototypeOf(pixel)    // true
 
 // In fact `Pixel` itself inherits from `Color`, remember just simple and
-// pure prototypal inheritance where object inherit from objects.
-Color.isPrototypeOf(Pixel)
+// pure prototypal inheritance where object inherits from objects.
+Color.isPrototypeOf(Pixel)    // true
 ```
