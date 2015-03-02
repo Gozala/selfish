@@ -1,0 +1,30 @@
+{
+  "name": "selfish",
+  "main": "selfish.js",
+  "version": "0.3.2",
+  "homepage": "https://github.com/Gozala/selfish",
+  "authors": [
+    "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)"
+  ],
+  "description": "Class-free, pure prototypal inheritance",
+  "moduleType": [
+    "amd"
+  ],
+  "keywords": [
+    "oop",
+    "inheritance",
+    "prototype",
+    "class",
+    "micro",
+    "class-free"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {}
+}
