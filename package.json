@@ -18,6 +18,13 @@
     "url": "http://github.com/Gozala/selfish/issues/"
   },
   "devDependencies": {
+    "jasmine-core": "^2.2.0",
+    "karma": "^0.12.31",
+    "karma-chrome-launcher": "^0.1.7",
+    "karma-firefox-launcher": "^0.1.4",
+    "karma-jasmine": "^0.3.5",
+    "karma-opera-launcher": "^0.1.0",
+    "karma-phantomjs-launcher": "^0.1.4",
     "test": ">=0.2.1"
   },
   "main": "./selfish.js",
@@ -25,7 +32,8 @@
     "node": ">=0.6.0"
   },
   "scripts": {
-    "test": "node tests/test-selfish.js"
+    "test": "node tests/test-selfish.js",
+    "karma": "karma start karma.conf.js"
   },
   "licenses": [{
     "type" : "MIT",

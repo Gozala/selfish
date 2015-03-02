@@ -66,7 +66,7 @@ exports["test prototype immutability"] = function(assert) {
   }, "Base prototype is imutable");
   assert.throws(function() {
     Base.foo = "bar";
-  }, "Base prototype is non-configurabel");
+  }, "Base prototype is non-configurable");
   assert.throws(function() {
     delete Base.new;
   }, "Can't delete properties on prototype");
