@@ -149,3 +149,67 @@ describe('#extended prototype immutability', function() {
     expect(Bar.nothing).toBe(Foo.nothing);
   });
 });
+
+describe('#instance mutability', function() {
+  var Foo, f1;
+  beforeEach(function() {
+    Foo = Base.extend({
+      name: "foo",
+      init: function init(number) {
+        this.number = number;
+      }
+    });
+    f1 = Foo.new();
+  });
+  it('instance is mutable', function() {
+    f1.alias = 'f1';
+    expect(f1.alias).toBe('f1');
+  });
+  it('own properties are deletable', function() {
+    f1.alias = 'f1';
+    delete f1.alias;
+    expect('alias' in f1).toBe(false);
+  });
+  it('methods can mutate instance\'s own properties', function() {
+    f1.init(1);
+    expect(f1.number).toBe(1);
+  });
+});
+
+describe('#super', function() {
+  var Foo, Bar, bar;
+  beforeEach(function() {
+    Foo = Base.extend({
+      initialize: function Foo(options) {
+        this.name = options.name;
+      }
+    });
+
+    Bar = Foo.extend({
+      initialize: function Bar(options) {
+        Foo.initialize.call(this, options);
+        this.type = 'bar';
+      }
+    });
+
+    bar = Bar.new({
+      name: 'test'
+    });
+  });
+
+  it('Bar is prototype of Bar.new', function() {
+    expect(Bar.isPrototypeOf(bar)).toBe(true);
+  });
+  it('Foo is prototype of Bar.new', function() {
+    expect(Foo.isPrototypeOf(bar)).toBe(true);
+  });
+  it('Base is prototype of Bar.new', function() {
+    expect(Base.isPrototypeOf(bar)).toBe(true);
+  });
+  it('bar initializer was called', function() {
+    expect(bar.type).toBe('bar');
+  });
+  it('bar initializer called Foo initializer', function() {
+    expect(bar.name).toBe('test');
+  });
+});
