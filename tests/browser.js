@@ -101,3 +101,51 @@ describe('#prototype immutability', function() {
     expect(Base.new).toBe(tmp);
   });
 });
+
+describe('#extended prototype immutability', function() {
+  var Foo, Bar;
+  beforeEach(function() {
+    Foo = Base.extend({
+      name: 'hello',
+      rename: function rename(name) {
+        this.name = name;
+      },
+      nothing: function nothing() {}
+    });
+    Bar = Foo.extend({
+      rename: function rename() {
+        return this.name;
+      }
+    });
+  });
+  it('Can\'t change prototype properties', function() {
+    var tmp = Foo.extend;
+    Foo.extend = function() {}
+    expect(Foo.extend).toBe(tmp);
+  });
+
+  it('Can\'t add prototype properties', function() {
+    var tmp = Foo.foo;
+    Foo.foo = 'bar';
+    expect(Foo.foo).toBe(tmp);
+  });
+
+  it('Can\'t remove prototype properties', function() {
+    var tmp = Foo.name;
+    delete Foo.name;
+    expect(Foo.name).toBe(tmp);
+  });
+
+  it("Method's can't mutate prototypes", function() {
+    var tmp = Foo.name;
+    Foo.rename("new name");
+    expect(Foo.name).toBe(tmp);
+    expect(Foo.name).not.toBe("new name");
+  });
+
+  it("properties may be overided on decedents", function() {
+    expect(Bar.rename()).toBe(Foo.name);
+    expect(Bar.rename).not.toBe(Foo.rename);
+    expect(Bar.nothing).toBe(Foo.nothing);
+  });
+});
