@@ -1,5 +1,9 @@
 # Changes #
 
+## 0.3.3 / 2014-11-02
+
+  - Updated requirejs compatibility
+
 ## 0.3.2 / 2011-12-29
 
   - Fix `package.json` so that npm no longer complains.
