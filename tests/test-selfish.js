@@ -13,9 +13,9 @@ exports["test .isPrototypeOf"] = function(assert) {
   assert.ok(Base.isPrototypeOf(Base.new()),
             "Base is a prototype of Base.new()");
   assert.ok(Base.isPrototypeOf(Base.extend()),
-            "Base is a prototype of Base.extned()");
+            "Base is a prototype of Base.extend()");
   assert.ok(Base.isPrototypeOf(Base.extend().new()),
-            "Base is a prototoype of Base.extend().new()");
+            "Base is a prototype of Base.extend().new()");
   assert.ok(!Base.extend().isPrototypeOf(Base.extend()),
             "Base.extend() in not prototype of Base.extend()");
   assert.ok(!Base.extend().isPrototypeOf(Base.new()),
@@ -43,8 +43,8 @@ exports["test inheritance"] = function(assert) {
                "Parent decedent inherits name");
 
   var Child = Parent.extend({ name: "child" });
-  assert.notEqual(Child.name, Parent.name, "Child overides name");
-  assert.equal(Child.new().name, Child.name, "Child intsances inherit name");
+  assert.notEqual(Child.name, Parent.name, "Child overrides name");
+  assert.equal(Child.new().name, Child.name, "Child instances inherit name");
   assert.equal(Child.extend().name, Child.name,
                "Child decedents inherit name");
 
@@ -55,18 +55,18 @@ exports["test inheritance"] = function(assert) {
                "Child instances inherit method");
 
   assert.equal(Child.method(), "hello child",
-               "method refers to instance proprety");
+               "method refers to instance property");
   assert.equal(Child.extend({ name: "decedent" }).new().method(),
-               "hello decedent", "method may be overrided");
+               "hello decedent", "method may be overridden");
 };
 
 exports["test prototype immutability"] = function(assert) {
   assert.throws(function() {
     Base.extend = function() {};
-  }, "Base prototype is imutable");
+  }, "Base prototype is immutable");
   assert.throws(function() {
     Base.foo = "bar";
-  }, "Base prototype is non-configurabel");
+  }, "Base prototype is non-configurable");
   assert.throws(function() {
     delete Base.new;
   }, "Can't delete properties on prototype");
@@ -98,7 +98,7 @@ exports["test prototype immutability"] = function(assert) {
   });
 
   assert.equal(Bar.rename(), Foo.name,
-               "properties may be overided on decedents");
+               "properties may be overridden on decedents");
 };
 
 exports['test instance mutability'] = function(assert) {
