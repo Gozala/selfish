@@ -9,7 +9,7 @@ before_script:
   - sleep 3 # give xvfb some time to start
 script:
   - npm test
-  - karma start saulabs.conf.js --single-run
+  - karma start saucelabs.conf.js --single-run
 env:
   global:
     - secure: false
