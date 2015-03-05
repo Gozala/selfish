@@ -4,19 +4,24 @@ module.exports = function(config) {
       base: 'SauceLabs',
       browserName: 'chrome',
       platform: 'Windows 7',
-      version: '35'
+      version: '40'
     },
     sl_firefox: {
       base: 'SauceLabs',
       browserName: 'firefox',
-      version: '30'
+      version: '35'
     },
-    //sl_ios_safari: {
-      //base: 'SauceLabs',
-      //browserName: 'iphone',
-      //platform: 'OS X 10.10',
-      //version: '7.1'
-    //},
+    sl_opera: {
+      base: 'SauceLabs',
+      browserName: 'opera',
+      version: '11'
+    },
+    sl_ios_safari: {
+      base: 'SauceLabs',
+      browserName: 'iphone',
+      platform: 'OS X 10.10',
+      version: '8.0'
+    },
     sl_osx_safari: {
       base: 'SauceLabs',
       browserName: 'safari',
@@ -66,7 +71,7 @@ module.exports = function(config) {
       }
     },
     // Increase timeout in case connection in CI is slow
-    captureTimeout: 120000,
+    captureTimeout: 180000,
     customLaunchers: customLaunchers,
     browsers: Object.keys(customLaunchers),
     // Continuous Integration mode

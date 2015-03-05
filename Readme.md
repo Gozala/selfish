@@ -1,6 +1,6 @@
-# selfish #
+# selfish [![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish) #
 
-[![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish)
+[![Sauce Test Status](https://saucelabs.com/browser-matrix/posva.svg)](https://saucelabs.com/u/posva)
 
 Class-free, pure prototypal inheritance that lets you write expressive,
 well-structured code, without ever touching special `prototype` properties
