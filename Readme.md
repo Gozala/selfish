@@ -8,11 +8,26 @@ or `new`, `instanceof` operators.
 
 ## Install ##
 
+### server-side ###
+
     npm install selfish
+
+### client-side ###
+
+    bower install selfish
+
 
 ## Require ##
 
+### server-side ###
+
     var Base = require('!raw.github.com/Gozala/selfish/v0.3.0/selfish').Base
+
+### client-side RequireJS ###
+
+    define(['path/to/selfish'], function(selfish) { 
+       var Base = selfish.Base;
+    }
 
 ## Examples ##
 
