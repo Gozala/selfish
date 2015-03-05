@@ -13,7 +13,7 @@ module.exports = function(config) {
     colors: true,
     logLevel: config.LOG_INFO,
     autoWatch: true,
-    browsers: ['Chrome', 'Firefox'],
+    browsers: ['Firefox'],
     // Continuous Integration mode
     singleRun: false
   });
