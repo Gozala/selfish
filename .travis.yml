@@ -1,18 +1,18 @@
 language: node_js
 node_js:
-  - node
-  - 0.10
+- node
+- 0.1
 before_script:
-  - npm install -g karma-cli
-  - "export DISPLAY=:99.0"
-  - "sh -e /etc/init.d/xvfb start"
-  - sleep 3 # give xvfb some time to start
+- npm install -g karma-cli
+- export DISPLAY=:99.0
+- sh -e /etc/init.d/xvfb start
+- sleep 3
 script:
-  - npm test
-  - karma start saucelabs.conf.js --single-run
+- npm test
+- karma start saucelabs.conf.js --single-run
 env:
   global:
-    - secure: false
-    - secure: false
+  - secure: cS6uFnPcqrweYqT2mhxAFjnq4AG9HquymzcGncHdPVwziVuJ7n+Y++xOhU3SFds4fvLka4sIPSFEwaPqsoDOwe9jR8rGwAAPZoYsMlUBHgMfVOS04S/rOnEZDCUusn3w/0ZDA75ULfCcyYQxniouhy5uBSuGEpQdVsDL3sdfUmU=
+  - secure: HKlmxEPTnYYu2fNpkOt2iEPcjbmhD5A7lHd3PyfA8FnaKGsPMVZghyL0k5uk5O5SgRZwGGuf5eSDboQvag7oRR9BOUJM2aU6JvpWTzsGKsJvJvH8Du9IHM42U5BnHbnQINdmuS46FHPgOK3yw0mbV+4QaQrjtAyaXinYqWOd/mg=
 addons:
-    sauce_connect: true
+  sauce_connect: true
