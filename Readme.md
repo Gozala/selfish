@@ -2,9 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish)
 
-Class-free, pure prototypal inheritance that lets you write expressive,
-well-structured code, without ever touching special `prototype` properties
-or `new`, `instanceof` operators.
+Class-free, pure prototypal multiple inheritance that lets you write expressive,
+well-structured code.
 
 ## Install ##
 
@@ -21,11 +20,11 @@ or `new`, `instanceof` operators.
 
 ### server-side ###
 
-    var Base = require('!raw.github.com/Gozala/selfish/v0.3.0/selfish').Base
+    var Base = require('!raw.github.com/Gozala/selfish/v1.0.0/selfish').Base
 
 ### client-side RequireJS ###
 
-    define(['path/to/selfish'], function(selfish) { 
+    define(['path/to/selfish'], function(selfish) {
        var Base = selfish.Base;
     }
 
@@ -45,12 +44,12 @@ var Dog = Base.extend({
 // Forget about classes, javascript is a prototypal language:
 typeof Dog                // object
 
-// Forget about special `new` operator, just use a maker function:
-var dog = Dog.new()
+// Use new operator to create an instance
+var dog = new Dog()
 dog.bark()                // 'Ruff! Ruff!'
 
 // Forget about special `instanceof` operator, use JS native method instead:
-Dog.isPrototypeOf(dog)    // true
+Dog.prototype.isPrototypeOf(dog)    // true
 
 // Objects inherit from objects, what could be more object oriented than
 // that ?
@@ -67,10 +66,10 @@ var Pet = Dog.extend({
   }
 })
 
-// All arguments passed to `new` are forwarded to the `initialize` method
-// of instance. If you want do something different just override `new` :)
+// All arguments passed to the constructor are forwarded to the `initialize`
+// method of instance.
 
-var pet = Pet.new('Labrador', 'Benzy')
+var pet = new Pet('Labrador', 'Benzy')
 pet.toString()          // 'Labrador Benzy'
 pet.call('doggy')       // ''
 pet.call('Benzy')       // 'Ruff! Ruff!'
@@ -100,7 +99,7 @@ var RGB = Base.extend({
   }
 })
 
-var CMYK = Base.extend(RGB, {
+var CMYK = Base.extend(RGB.prototype, {
   black: function black() {
     var color = Math.max(Math.max(this.red(), this.green()), this.blue())
     return (1 - color / 255).toFixed(4)
@@ -120,7 +119,7 @@ var CMYK = Base.extend(RGB, {
 })
 
 // Composing `Color` prototype out of reusable components:
-var Color = Base.extend(HEX, RGB, CMYK, {
+var Color = Base.extend(HEX.prototype, RGB.prototype, CMYK.prototype, {
   initialize: function initialize(color) {
     this.color = color
   }
@@ -152,14 +151,19 @@ var Pixel = Color.extend({
   }
 })
 
-var pixel = Pixel.new(11, 23, 'CC3399')
+var pixel = new Pixel(11, 23, 'CC3399')
 pixel.toString()              // 11:23@#CC3399
-Pixel.isPrototypeOf(pixel)    // true
+Pixel.prototype.isPrototypeOf(pixel)    // true
 
 // Pixel instances inhertis from `Color`
-Color.isPrototypeOf(pixel)    // true
+Color.prototype.isPrototypeOf(pixel)    // true
 
-// In fact `Pixel` itself inherits from `Color`, remember just simple and
+// In fact `Pixel.prototype` itself inherits from `Color.prototype`, remember just simple and
 // pure prototypal inheritance where objects inherit from objects.
-Color.isPrototypeOf(Pixel)    // true
+Color.prototype.isPrototypeOf(Pixel.prototype)    // true
 ```
+
+### TODO ###
+
+* Add `testling` badge
+* Add examples about private variables (closures)

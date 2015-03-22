@@ -3,35 +3,12 @@
          forin: true latedef: false supernew: true */
 /*global define: true */
 
-!(typeof define !== "function" ? function(_, $){ $(null, typeof exports !== 'undefined' ? exports : window); } : define)('selfish', function(require, exports) {
+!(typeof define !== "function" ? function(_, $) {
+  $(null, typeof exports !== "undefined" ? exports : window);
+} : define)("selfish", function(require, exports) {
 
-"use strict";
+  "use strict";
 
-exports.Base = Object.freeze(Object.create(Object.prototype, {
-  /**
-   * Creates an object that inherits from `this` object (Analog of
-   * `new Object()`).
-   * @examples
-   *
-   *    var Dog = Base.extend({
-   *      bark: function bark() {
-   *        return 'Ruff! Ruff!'
-   *      }
-   *    });
-   *    var dog = Dog.new();
-   */
-  'new': { value: function create() {
-    var object = Object.create(this);
-    object.initialize.apply(object, arguments);
-    return object;
-  }},
-  /**
-   * When new instance of the this prototype is created it's `initialize`
-   * method is called with all the arguments passed to the `new`. You can
-   * override `initialize` to set up an instance.
-   */
-  initialize: { value: function initialize() {
-  }},
   /**
    * Merges all the properties of the passed objects into `this` instance (This
    * method can be used on instances only as prototype objects are frozen).
@@ -45,27 +22,45 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *
    *    var Pet = Dog.extend({
    *      initialize: function initialize(options) {
-   *        // this.name = options.name -> would have thrown (frozen prototype)
-   *        this.merge(options) // will override all properties.
+   *        this.name = options.name;
    *      },
    *      call: function(name) {
-   *        return this.name === name ? this.bark() : ''
+   *        return this.name === name ? this.bark() : '';
    *      },
    *      name: null
-   *    })
-   *    var pet = Pet.new({ name: 'Benzy', breed: 'Labrador' })
-   *    pet.call('Benzy')   // 'Ruff! Ruff!'
+   *    });
+   *    var pet = new Pet({ name: 'Benzy', breed: 'Labrador' });
+   *    pet.call('Benzy');   // 'Ruff! Ruff!'
    */
-  merge: { value: function merge() {
+  var merge = function selfishMerge() {
     var descriptor = {};
-    Array.prototype.forEach.call(arguments, function (properties) {
+    Array.prototype.forEach.call(arguments, function(properties) {
       Object.getOwnPropertyNames(properties).forEach(function(name) {
         descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
       });
     });
     Object.defineProperties(this, descriptor);
     return this;
-  }},
+  };
+
+  exports.merge = merge;
+
+  /**
+   * This is the main constructor. It should be used by any other object.
+   * Always calling the `initialize` function makes it easier to keep
+   * a coherent inheritance tree.
+   */
+  var Base = function BaseConstructor() {
+    this.initialize.apply(this, arguments);
+  };
+
+  /**
+   * When new instance of the this prototype is created its `initialize`
+   * method is called with all the arguments passed to the `new`. You can
+   * override `initialize` to set up an instance.
+   */
+  Base.prototype.initialize = function BaseInitialize() {};
+
   /**
    * Takes any number of argument objects and returns frozen, composite object
    * that inherits from `this` object and combines all of the own properties of
@@ -76,6 +71,12 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    * the property is overridden, with precedence from right to left, implying,
    * that properties of the object on the left are overridden by a same named
    * property of the object on the right.
+   *
+   * When extending selfish prototypes remember to call it on their `prototype`
+   * instead of the type itself.
+   *
+   * This is the only function that should not be placed in the prototype as it
+   * is relative to the object.
    * @examples
    *
    *    // ## Object composition ##
@@ -84,7 +85,7 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *      hex: function hex() {
    *        return '#' + this.color;
    *      }
-   *    })
+   *    });
    *
    *    var RGB = Base.extend({
    *      red: function red() {
@@ -96,9 +97,9 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *      blue: function blue() {
    *        return parseInt(this.color.substr(4, 2), 16);
    *      }
-   *    })
+   *    });
    *
-   *    var CMYK = Base.extend(RGB, {
+   *    var CMYK = Base.extend(RGB.prototype, {
    *      black: function black() {
    *        var color = Math.max(Math.max(this.red(), this.green()), this.blue());
    *        return (1 - color / 255).toFixed(4);
@@ -115,9 +116,9 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *        var K = this.black();
    *        return (((1 - this.blue() / 255).toFixed(4) - K) / (1 - K)).toFixed(4);
    *      }
-   *    })
+   *    });
    *
-   *    var Color = Base.extend(HEX, RGB, CMYK, {
+   *    var Color = Base.extend(HEX.prototype, RGB.prototype, CMYK.prototype, {
    *      initialize: function Color(color) {
    *        this.color = color;
    *      }
@@ -136,7 +137,7 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *      }
    *    });
    *
-   *    var pixel = Pixel.new(11, 23, 'CC3399')
+   *    var pixel = new Pixel(11, 23, 'CC3399');
    *    pixel.toString(); // 11:23@#CC3399
    *
    *    pixel.red();      // 204
@@ -148,9 +149,32 @@ exports.Base = Object.freeze(Object.create(Object.prototype, {
    *    pixel.yellow();   // 0.2500
    *
    */
-   extend: { value: function extend() {
-    return Object.freeze(this.merge.apply(Object.create(this), arguments));
-  }}
-}));
+  Base.extend = function selfishExtend() {
+    var dependencies = [];
+    /*
+     * It is actually important to redefine a constructor here. Even if
+     * the body is always the same
+     */
+    var constructor = function() { // Call initialize by default if possible
+      this.initialize.apply(this, arguments);
+    };
+    Array.prototype.forEach.call(arguments, function(dependency) {
+      dependencies.push(dependency);
+    });
+    // Copy the prototype methods that allows us to do inheritance
+    constructor.extend = this.extend;
+
+    // Generate the prototype and extend it
+    var descriptor = Object.create(this.prototype);
+    merge.apply(descriptor, arguments);
+
+    // Freeze the new created prototype
+    constructor.prototype = Object.freeze(descriptor);
+    return Object.freeze(constructor);
+  };
+
+  // Freeze the prototype as well as the constructor
+  Base.prototype = Object.freeze(Base.prototype);
+  exports.Base = Object.freeze(Base);
 
 });

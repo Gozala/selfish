@@ -1,9 +1,17 @@
 {
   "name": "selfish",
   "id": "selfish",
-  "version": "0.3.3",
-  "description": "Class-free, pure prototypal inheritance",
-  "keywords": [ "oop", "inheritance", "prototype", "class", "micro", "class-free" ],
+  "version": "1.0.0",
+  "description": "Class-free, pure prototypal multiple inheritance",
+  "keywords": [
+    "oop",
+    "multiple",
+    "inheritance",
+    "prototype",
+    "class",
+    "micro",
+    "class-free"
+  ],
   "author": "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
   "contributors": [
     "Eduardo San Martin Morote <i@posva.net> (http://posva.net)"
@@ -18,17 +26,51 @@
     "url": "http://github.com/Gozala/selfish/issues/"
   },
   "devDependencies": {
-    "test": ">=0.2.1"
+    "mocha": "^2.2.1",
+    "should": "^5.2.0"
+  },
+  "testling": {
+    "harness": "mocha-bdd",
+    "files": "test/*.js",
+    "browsers": {
+      "iexplore": [
+        9,
+        10
+      ],
+      "chrome": [
+        16,
+        20,
+        25,
+        "canary"
+      ],
+      "firefox": [
+        10,
+        15,
+        16,
+        17,
+        18,
+        "nightly"
+      ],
+      "safari": [
+        5,
+        6
+      ],
+      "opera": [
+        12
+      ]
+    }
   },
   "main": "./selfish.js",
   "engines": {
-    "node": ">=0.6.0"
+    "node": ">=0.10.0"
   },
   "scripts": {
-    "test": "node tests/test-selfish.js"
+    "test": "./node_modules/.bin/mocha"
   },
-  "licenses": [{
-    "type" : "MIT",
-    "url" : "http://jeditoolkit.com/LICENSE"
-  }]
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://jeditoolkit.com/LICENSE"
+    }
+  ]
 }
