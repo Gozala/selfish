@@ -1,5 +1,14 @@
 # Changes #
 
+## 1.0.0 / 2015-03-02
+
+  - Mocha + should for testing
+  - We now mess with the prototypes so we can call `new Foo()` instead of
+      `Foo.new()`. This means that most of the calls that were made with `Foo`
+      are now made with `Foo.prototype` except `extend` which is still made on
+      the object and not on its prototype.
+  - `instanceof` should now be working but this feature is not tested
+
 ## 0.3.3 / 2014-11-02
 
   - Updated requirejs compatibility
