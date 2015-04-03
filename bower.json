@@ -1,10 +1,11 @@
 {
   "name": "selfish",
   "main": "selfish.js",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "homepage": "https://github.com/Gozala/selfish",
   "authors": [
-    "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)"
+    "Irakli Gozalishvili <rfobic@gmail.com> (http://jeditoolkit.com)",
+    "Eduardo San Martin Morote <i@posva.net> (http://posva.net)"
   ],
   "description": "Class-free, pure prototypal multiple inheritance",
   "moduleType": [

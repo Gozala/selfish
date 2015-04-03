@@ -1,5 +1,9 @@
 # Changes #
 
+## 1.0.1 / 2015-04-03
+  - Updated bower.json authors
+  - I messed up publishing with npm so I need to create this version
+
 ## 1.0.0 / 2015-03-02
 
   - Mocha + should for testing
