@@ -165,5 +165,19 @@ Color.prototype.isPrototypeOf(Pixel.prototype)    // true
 
 ### TODO ###
 
+This is a list of things I may introduce in newer versions.
+
 * Add `testling` badge
 * Add examples about private variables (closures)
+* Add guidelines on how to use the lib for common cases
+* Add `requirejs` test
+* Better merge? in-depth merge (like lodash). Two different `extend` methods ?
+* Do a full prototype chaining ?
+```js
+var Extra = Base.extend(Foo, Bar, {toto: true});
+var instance = new Extra();
+Base.prototype.isPrototypeOf(instance); // true :D
+Extra.prototype.isPrototypeOf(instance); // true :D
+Foo.prototype.isPrototypeOf(instance); // false :(
+Bar.prototype.isPrototypeOf(instance); // false :(
+```
