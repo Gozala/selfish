@@ -1,7 +1,7 @@
 {
   "name": "selfish",
   "id": "selfish",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Class-free, pure prototypal multiple inheritance",
   "keywords": [
     "oop",

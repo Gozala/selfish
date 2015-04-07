@@ -1,5 +1,8 @@
 # Changes #
 
+## 1.0.2 / 2015-04-07
+  - Fixed #16: instances properties defined through objects are not mutable
+
 ## 1.0.1 / 2015-04-03
   - Updated bower.json authors
   - I messed up publishing with npm so I need to create this version
