@@ -33,10 +33,21 @@
    *    pet.call('Benzy');   // 'Ruff! Ruff!'
    */
   var merge = function selfishMerge() {
-    var descriptor = {};
+    var descriptor = {}, property;
+    var that = Array.prototype.shift.call(arguments) || {};
+    that.descriptors = {};
     Array.prototype.forEach.call(arguments, function(properties) {
       Object.getOwnPropertyNames(properties).forEach(function(name) {
-        descriptor[name] = Object.getOwnPropertyDescriptor(properties, name);
+        property = Object.getOwnPropertyDescriptor(properties, name);
+        // This happens to be a problem for the constructor variable
+        // A proper solution has to be found. This is only a fix
+        if (property.enumerable) {
+          descriptor[name] = property;
+          descriptor[name].configurable = true;
+          descriptor[name].enumerable = true;
+          descriptor[name].writable = true;
+          that.descriptors[name] = descriptor[name];
+        }
       });
     });
     Object.defineProperties(this, descriptor);
@@ -156,6 +167,14 @@
      * the body is always the same
      */
     var constructor = function() { // Call initialize by default if possible
+      var name;
+      if (constructor.descriptors) {
+        for (name in constructor.descriptors) {
+          if (constructor.descriptors.hasOwnProperty(name)) {
+            Object.defineProperty(this, name, constructor.descriptors[name]);
+          }
+        }
+      }
       this.initialize.apply(this, arguments);
     };
     Array.prototype.forEach.call(arguments, function(dependency) {
@@ -166,7 +185,10 @@
 
     // Generate the prototype and extend it
     var descriptor = Object.create(this.prototype);
-    merge.apply(descriptor, arguments);
+    // We want to keep the prototype properties too
+    dependencies.unshift(this.prototype);
+    dependencies.unshift(constructor);
+    merge.apply(descriptor, dependencies);
 
     // Freeze the new created prototype
     constructor.prototype = Object.freeze(descriptor);

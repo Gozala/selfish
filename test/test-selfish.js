@@ -216,6 +216,84 @@
       f1.init(3);
       f1.number.should.be.eql(3);
     });
+    it("properties can be directly mutated", function() {
+      f1.name.should.be.eql("foo");
+      (function() {
+        f1.name = "lol";
+      }).should.not.throw();
+      f1.name.should.be.eql("lol");
+    });
+    describe("#Deeper inheritance mutability", function() {
+      var A, B, C;
+      before(function() {
+        A = Base.extend({
+          name: "A",
+          hello: function() {
+            return this.name;
+          }
+        });
+        B = A.extend({
+          varB: "B"
+        });
+        C = B.extend({
+          varC: "C"
+        });
+      });
+      it("A instance can modify name", function() {
+        var a = new A();
+        a.name.should.be.eql("A");
+        a.hello().should.be.eql("A");
+        (function() {
+          a.name = "Foo";
+        }).should.not.throw();
+        a.name.should.be.eql("Foo");
+        a.hello().should.be.eql("Foo");
+      });
+      it("B instance inherits A.name", function() {
+        var b = new B();
+        b.name.should.be.eql("A");
+        b.hello().should.be.eql("A");
+      });
+      it("B instance varB is mutable", function() {
+        var b = new B();
+        b.varB.should.be.eql("B");
+        (function() {
+          b.varB = "Foo";
+        }).should.not.throw();
+        b.varB.should.be.eql("Foo");
+      });
+      it("B instance can modify name", function() {
+        var c = new C();
+        (function() {
+          c.name = "Foo";
+        }).should.not.throw();
+        c.name.should.be.eql("Foo");
+        c.hello().should.be.eql("Foo");
+      });
+      it("C instance varC is mutable", function() {
+        var c = new C();
+        c.varC.should.be.eql("C");
+        (function() {
+          c.varC = "Foo";
+        }).should.not.throw();
+        c.varC.should.be.eql("Foo");
+      });
+      it("C instance can modify name", function() {
+        var c = new C();
+        (function() {
+          c.name = "Foo";
+        }).should.not.throw();
+        c.name.should.be.eql("Foo");
+        c.hello().should.be.eql("Foo");
+      });
+      it("C instance can modify varB", function() {
+        var c = new C();
+        (function() {
+          c.varB = "Foo";
+        }).should.not.throw();
+        c.varB.should.be.eql("Foo");
+      });
+    });
   });
 
   describe("#Super", function() {
