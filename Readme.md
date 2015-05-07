@@ -181,3 +181,15 @@ Extra.prototype.isPrototypeOf(instance); // true :D
 Foo.prototype.isPrototypeOf(instance); // false :(
 Bar.prototype.isPrototypeOf(instance); // false :(
 ```
+* Clone inner objects:
+```js
+var someBase = {
+  outer: {
+    inner: 1
+  }
+}
+var Extra = Base.extend(Foo, Bar, someBase);
+var e = new Extra();
+e.outer.inner = 3;
+someBase.outer.inner === 1; // should be true
+```
