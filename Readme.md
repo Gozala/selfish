@@ -44,8 +44,12 @@ var Dog = Base.extend({
 // Forget about classes, javascript is a prototypal language:
 typeof Dog                // object
 
-// Use new operator to create an instance
+// Use `new` operator to create an instance:
 var dog = new Dog()
+dog.bark()                // 'Ruff! Ruff!'
+
+// Or alternatively forget about special `new` operator, just use a maker function:
+var dog = Dog.new()
 dog.bark()                // 'Ruff! Ruff!'
 
 // Forget about special `instanceof` operator, use JS native method instead:
@@ -69,7 +73,7 @@ var Pet = Dog.extend({
 // All arguments passed to the constructor are forwarded to the `initialize`
 // method of instance.
 
-var pet = new Pet('Labrador', 'Benzy')
+var pet = Pet.new('Labrador', 'Benzy') // works for Pet.new('Labrador', 'Benzy') too
 pet.toString()          // 'Labrador Benzy'
 pet.call('doggy')       // ''
 pet.call('Benzy')       // 'Ruff! Ruff!'
@@ -151,7 +155,7 @@ var Pixel = Color.extend({
   }
 })
 
-var pixel = new Pixel(11, 23, 'CC3399')
+var pixel = Pixel.new(11, 23, 'CC3399')
 pixel.toString()              // 11:23@#CC3399
 Pixel.prototype.isPrototypeOf(pixel)    // true
 
@@ -175,7 +179,7 @@ This is a list of things I may introduce in newer versions.
 * Do a full prototype chaining ?
 ```js
 var Extra = Base.extend(Foo, Bar, {toto: true});
-var instance = new Extra();
+var instance = Extra.new();
 Base.prototype.isPrototypeOf(instance); // true :D
 Extra.prototype.isPrototypeOf(instance); // true :D
 Foo.prototype.isPrototypeOf(instance); // false :(
@@ -189,7 +193,7 @@ var someBase = {
   }
 }
 var Extra = Base.extend(Foo, Bar, someBase);
-var e = new Extra();
+var e = Extra.new();
 e.outer.inner = 3;
 someBase.outer.inner === 1; // should be true
 ```

@@ -73,6 +73,29 @@
   Base.prototype.initialize = function BaseInitialize() {};
 
   /**
+   * Constructs an instance. An alternative maker function to using new keyword.
+   *
+   * @examples
+   *
+   *    var Pet = Dog.extend({
+   *      initialize: function initialize(options) {
+   *        this.name = options.name;
+   *      },
+   *      call: function(name) {
+   *        return this.name === name ? this.bark() : '';
+   *      },
+   *      name: null
+   *    });
+   *    var pet = Pet.new({ name: 'Benzy', breed: 'Labrador' });
+   *    pet.call('Benzy');   // 'Ruff! Ruff!'
+   */
+  Base.new = function() {
+    var instance = Object.create(Base.prototype);
+    Base.apply(instance, arguments)
+    return instance;
+  };
+
+  /**
    * Takes any number of argument objects and returns frozen, composite object
    * that inherits from `this` object and combines all of the own properties of
    * the argument objects. (Objects returned by this function are frozen as
@@ -182,6 +205,11 @@
     });
     // Copy the prototype methods that allows us to do inheritance
     constructor.extend = this.extend;
+    constructor.new = function() {
+      var instance = Object.create(constructor.prototype);
+      constructor.apply(instance, arguments)
+      return instance;
+    };
 
     // Generate the prototype and extend it
     var descriptor = Object.create(this.prototype);
@@ -192,7 +220,8 @@
 
     // Freeze the new created prototype
     constructor.prototype = Object.freeze(descriptor);
-    return Object.freeze(constructor);
+    constructor = Object.freeze(constructor);
+    return constructor;
   };
 
   // Freeze the prototype as well as the constructor
