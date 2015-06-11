@@ -44,8 +44,13 @@ var Dog = Base.extend({
 // Forget about classes, javascript is a prototypal language:
 typeof Dog                // object
 
-// Use new operator to create an instance
+// Use the new operator to create an instance:
 var dog = new Dog()
+dog.bark()                // 'Ruff! Ruff!'
+
+// Alternatively you can use the legacy new() function but keep in mind that
+// the new operator is faster in most browsers
+var dog = Dog.new()
 dog.bark()                // 'Ruff! Ruff!'
 
 // Forget about special `instanceof` operator, use JS native method instead:
@@ -140,7 +145,7 @@ pink.cyan()       // 0.0000
 ### Combining composition & inheritance ###
 
 ```js
-var Pixel = Color.extend({
+var pixel = new Pixel(11, 23, 'CC3399')
   initialize: function initialize(x, y, color) {
     Color.initialize.call(this, color)
     this.x = x
@@ -151,7 +156,7 @@ var Pixel = Color.extend({
   }
 })
 
-var pixel = new Pixel(11, 23, 'CC3399')
+var pixel = Pixel.new(11, 23, 'CC3399')
 pixel.toString()              // 11:23@#CC3399
 Pixel.prototype.isPrototypeOf(pixel)    // true
 
