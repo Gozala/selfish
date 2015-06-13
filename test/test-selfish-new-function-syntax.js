@@ -5,31 +5,31 @@
   var should = require("should");
   var Base = selfish.Base;
 
-  describe("new keyword syntax", function() {
+  describe(".new function syntax", function() {
     describe("#isPrototypeOf", function() {
-      it("Base is a prototype of new Base()", function() {
-        Base.prototype.isPrototypeOf(new Base()).should.be.true;
+      it("Base is a prototype of Base.new()", function() {
+        Base.prototype.isPrototypeOf(Base.new()).should.be.true;
       });
       it("Base is a prototype of Base.extend()", function() {
         Base.prototype.isPrototypeOf(Base.extend().prototype).should.be.true;
       });
-      it("Base is a prototype of new (Base.extend())", function() {
-        Base.prototype.isPrototypeOf(new(Base.extend())()).should.be.true;
+      it("Base is a prototype of (Base.extend()).new()", function() {
+        Base.prototype.isPrototypeOf((Base.extend()).new()).should.be.true;
       });
       it("Base.extend() in not prototype of Base.extend()", function() {
         Base.extend().prototype.isPrototypeOf(Base.extend().prototype).should.be.false;
       });
-      it("Base.extend() in not prototype of new (Base.extend())", function() {
-        Base.extend().prototype.isPrototypeOf(new(Base.extend())()).should.be.false;
+      it("Base.extend() in not prototype of (Base.extend()).new()", function() {
+        Base.extend().prototype.isPrototypeOf((Base.extend()).new()).should.be.false;
       });
-      it("new Base() is not prototype of new Base()", function() {
-        (new Base()).isPrototypeOf(new Base()).should.be.false;
+      it("Base.new() is not prototype of Base.new()", function() {
+        (Base.new()).isPrototypeOf(Base.new()).should.be.false;
       });
-      it("new Base() is not prototype of Base.extend()", function() {
-        (new Base()).isPrototypeOf(Base.extend().prototype).should.be.false;
+      it("Base.new() is not prototype of Base.extend()", function() {
+        (Base.new()).isPrototypeOf(Base.extend().prototype).should.be.false;
       });
-      it("Base.extend() is not prototype of new Base()", function() {
-        Base.extend().prototype.isPrototypeOf(new Base()).should.be.false;
+      it("Base.extend() is not prototype of Base.new()", function() {
+        Base.extend().prototype.isPrototypeOf(Base.new()).should.be.false;
       });
     });
 
@@ -59,10 +59,10 @@
       describe("Parent instances", function() {
         var p;
         before(function() {
-          p = new Parent();
+          p = Parent.new();
         });
         it("Parent instance inherits name", function() {
-          var p = new Parent();
+          var p = Parent.new();
           p.name.should.be.eql(Parent.prototype.name);
         });
         it("method behaves same on the prototype", function() {
@@ -89,7 +89,7 @@
       describe("Child instances", function() {
         var c;
         before(function() {
-          c = new Child();
+          c = Child.new();
         });
 
         it("Child instances inherit name", function() {
@@ -112,7 +112,7 @@
         var CC = Child.extend({
           name: "decedent"
         });
-        var cc = new CC();
+        var cc = CC.new();
         cc.method().should.be.eql("hello decedent");
       });
     });
@@ -198,7 +198,7 @@
             this.number = number;
           }
         });
-        f1 = new Foo();
+        f1 = Foo.new();
       });
       it("instance is mutable", function() {
         should(f1.alias).be.ko;
@@ -241,7 +241,7 @@
           });
         });
         it("A instance can modify name", function() {
-          var a = new A();
+          var a = A.new();
           a.name.should.be.eql("A");
           a.hello().should.be.eql("A");
           (function() {
@@ -251,12 +251,12 @@
           a.hello().should.be.eql("Foo");
         });
         it("B instance inherits A.name", function() {
-          var b = new B();
+          var b = B.new();
           b.name.should.be.eql("A");
           b.hello().should.be.eql("A");
         });
         it("B instance varB is mutable", function() {
-          var b = new B();
+          var b = B.new();
           b.varB.should.be.eql("B");
           (function() {
             b.varB = "Foo";
@@ -264,7 +264,7 @@
           b.varB.should.be.eql("Foo");
         });
         it("B instance can modify name", function() {
-          var c = new C();
+          var c = C.new();
           (function() {
             c.name = "Foo";
           }).should.not.throw();
@@ -272,7 +272,7 @@
           c.hello().should.be.eql("Foo");
         });
         it("C instance varC is mutable", function() {
-          var c = new C();
+          var c = C.new();
           c.varC.should.be.eql("C");
           (function() {
             c.varC = "Foo";
@@ -280,7 +280,7 @@
           c.varC.should.be.eql("Foo");
         });
         it("C instance can modify name", function() {
-          var c = new C();
+          var c = C.new();
           (function() {
             c.name = "Foo";
           }).should.not.throw();
@@ -288,7 +288,7 @@
           c.hello().should.be.eql("Foo");
         });
         it("C instance can modify varB", function() {
-          var c = new C();
+          var c = C.new();
           (function() {
             c.varB = "Foo";
           }).should.not.throw();
@@ -320,25 +320,25 @@
           }
         });
 
-        bar = new Bar({
+        bar = Bar.new({
           name: "test"
         });
 
-        c = new C({
+        c = C.new({
           name: "not bar"
         });
       });
 
-      it("Bar is prototype of new Bar()", function() {
+      it("Bar is prototype of Bar.new()", function() {
         Bar.prototype.isPrototypeOf(bar).should.be.true;
       });
-      it("Foo is prototype of new Bar()", function() {
+      it("Foo is prototype of Bar.new()", function() {
         Foo.prototype.isPrototypeOf(bar).should.be.true;
       });
-      it("Base is prototype of new Bar()", function() {
+      it("Base is prototype of Bar.new()", function() {
         Base.prototype.isPrototypeOf(bar).should.be.true;
       });
-      it("C is not prototype of new Bar()", function() {
+      it("C is not prototype of Bar.new()", function() {
         C.prototype.isPrototypeOf(bar).should.be.false;
       });
       it("bar initializer was called", function() {
@@ -398,7 +398,7 @@
 
       it("CMYK includes RGB but RGB is not his prototype", function() {
         RGB.prototype.isPrototypeOf(CMYK.prototype).should.be.false;
-        var c = new CMYK();
+        var c = CMYK.new();
         RGB.prototype.isPrototypeOf(c).should.be.false;
         CMYK.prototype.isPrototypeOf(c).should.be.true;
       });
@@ -410,7 +410,7 @@
       });
 
       it("Color instance have hex, red and yellow", function() {
-        var c = new Color("#ff0000");
+        var c = Color.new("#ff0000");
         should(c.hex).be.a.Function;
         should(c.red).be.a.Function;
         should(c.yellow).be.a.Function;
