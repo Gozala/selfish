@@ -1,5 +1,9 @@
 # Changes #
 
+## 1.1.0 / 2015-06-21
+  - Fixed #15: Added legacy `.new()` function
+  - Fixed deprecated warning on package.json
+
 ## 1.0.2 / 2015-04-07
   - Fixed #16: instances properties defined through objects are not mutable
 

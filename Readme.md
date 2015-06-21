@@ -1,36 +1,43 @@
-# selfish #
+# selfish
 
 [![Build Status](https://secure.travis-ci.org/Gozala/selfish.png)](http://travis-ci.org/Gozala/selfish)
 
 Class-free, pure prototypal multiple inheritance that lets you write expressive,
 well-structured code.
 
-## Install ##
+## Install
 
-### server-side ###
+### server-side
 
-    npm install selfish
+```bash
+npm install selfish
+```
 
-### client-side ###
+### client-side
 
-    bower install selfish
+```bash
+bower install selfish
+```
 
+## Require
 
-## Require ##
+### server-side
 
-### server-side ###
+```js
+var Base = require('!raw.github.com/Gozala/selfish/v1.0.0/selfish').Base
+```
 
-    var Base = require('!raw.github.com/Gozala/selfish/v1.0.0/selfish').Base
+### client-side RequireJS
 
-### client-side RequireJS ###
+```js
+define(['path/to/selfish'], function(selfish) {
+   var Base = selfish.Base;
+})
+```
 
-    define(['path/to/selfish'], function(selfish) {
-       var Base = selfish.Base;
-    }
+## Examples
 
-## Examples ##
-
-### Basics ###
+### Basics
 
 ```js
 // Instead of creating classes, you create prototype objects. Let's look
@@ -44,8 +51,13 @@ var Dog = Base.extend({
 // Forget about classes, javascript is a prototypal language:
 typeof Dog                // object
 
-// Use new operator to create an instance
+// Use the new operator to create an instance:
 var dog = new Dog()
+dog.bark()                // 'Ruff! Ruff!'
+
+// Alternatively you can use the legacy new() function but keep in mind that
+// the new operator is faster in most browsers
+var dog = Dog.new()
 dog.bark()                // 'Ruff! Ruff!'
 
 // Forget about special `instanceof` operator, use JS native method instead:
@@ -76,7 +88,7 @@ pet.call('Benzy')       // 'Ruff! Ruff!'
 ```
 
 
-### Object composition ###
+### Object composition
 
 ```js
 // In some programs recombining reusable pieces of code is a better option:
@@ -137,7 +149,7 @@ pink.yellow()     // 0.2039
 pink.cyan()       // 0.0000
 ```
 
-### Combining composition & inheritance ###
+### Combining composition & inheritance
 
 ```js
 var Pixel = Color.extend({
@@ -163,7 +175,7 @@ Color.prototype.isPrototypeOf(pixel)    // true
 Color.prototype.isPrototypeOf(Pixel.prototype)    // true
 ```
 
-### TODO ###
+### TODO
 
 This is a list of things I may introduce in newer versions.
 
