@@ -1,7 +1,7 @@
 {
   "name": "selfish",
   "id": "selfish",
-  "version": "1.0.2",
+  "version": "1.1.0",
   "description": "Class-free, pure prototypal multiple inheritance",
   "keywords": [
     "oop",
@@ -67,10 +67,5 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://jeditoolkit.com/LICENSE"
-    }
-  ]
+  "license": "MIT"
 }
